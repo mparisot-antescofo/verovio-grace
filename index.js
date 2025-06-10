@@ -21,3 +21,17 @@ try {
 } catch (err) {
     console.error(err);
 }
+
+try {
+    const data = readFileSync('./test-verovio-grace.mei', 'utf8');
+    verovioToolkit.loadData(data);
+    const timeMap = verovioToolkit.renderToTimemap({
+        includeMeasures: true,
+        includeRests: true,
+    });
+
+    writeFileSync('./generated-timeMap-mei.txt', JSON.stringify(timeMap,  null, 2));
+    writeFileSync('./generated-svg-mei.svg', verovioToolkit.renderToSVG(1));
+} catch (err) {
+    console.error(err);
+}
